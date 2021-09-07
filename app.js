@@ -20,4 +20,20 @@ const createApp = (store) => {
     return app
 }
 
-module.exports = {createApp}
+const isHttps = () => {
+    const privateKey = fs.readFileSync('/etc/letsencrypt/live/verifikasidata.info/privkey.pem', 'utf8');
+    const certificate = fs.readFileSync('/etc/letsencrypt/live/verifikasidata.info/cert.pem', 'utf8');
+    const ca = fs.readFileSync('/etc/letsencrypt/live/verifikasidata.info/chain.pem', 'utf8');
+
+    const credentials = {
+    	key: privateKey,
+    	cert: certificate,
+    	ca: ca
+    };
+
+    const httpsServer = https.createServer(credentials, app);
+
+    return httpsServer
+}
+
+module.exports = {createApp, isHttps}
