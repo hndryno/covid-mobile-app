@@ -6,6 +6,9 @@ const helmet = require('helmet')
 const cors = require('cors')
 // const bodyParser = require('body-parser')
 
+const fs = require('fs');
+const https = require('https');
+
 const createApp = (store) => {
     db.authenticate().then(() => console.log('database connected')).catch(err => console.log(err))
     app.use(helmet())
